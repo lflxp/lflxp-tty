@@ -1,5 +1,5 @@
 install: asset
-	cp cmd/main.go ..
+	cp cmd/main.go .
 	go install
 	rm -f main.go
 
