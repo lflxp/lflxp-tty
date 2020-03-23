@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"bytes"
+	"encoding/base64"
 	"errors"
 	"fmt"
 	"math/rand"
@@ -135,4 +136,21 @@ func GetIPs() (ips []string) {
 		}
 	}
 	return ips
+}
+
+// 加密base64
+func EncodeBase64(in string) string {
+	return base64.StdEncoding.EncodeToString([]byte(in))
+}
+
+// 解密base64
+func DecodeBase64(in string) (string, error) {
+	decoded, err := base64.StdEncoding.DecodeString(in)
+	return string(decoded), err
+}
+
+// 解密base64
+func DecodeBase64Bytes(in string) ([]byte, error) {
+	decoded, err := base64.StdEncoding.DecodeString(in)
+	return decoded, err
 }

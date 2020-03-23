@@ -16,7 +16,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 
 	"github.com/gorilla/websocket"
-	"github.com/lflxp/showme/utils"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -185,7 +184,7 @@ func (this *ClientContext) Receive(quitChan chan bool) {
 
 			// go func() {
 			// 	if message[0] == Input {
-			// 		rs, err := utils.DecodeBase64(msg)
+			// 		rs, err := DecodeBase64(msg)
 			// 		if err != nil {
 			// 			log.WithField("Ws.go", "169").Error("Recive[129]", err.Error())
 			// 			return
@@ -204,7 +203,7 @@ func (this *ClientContext) Receive(quitChan chan bool) {
 
 			// 审计
 			if this.Xtermjs.Options.Audit {
-				cm, err := utils.DecodeBase64(msg)
+				cm, err := DecodeBase64(msg)
 				if err != nil {
 					log.WithField("Ws.go", "205").Errorf("Recive[172] [%s] %s", msg, err.Error())
 					break
@@ -233,7 +232,7 @@ func (this *ClientContext) Receive(quitChan chan bool) {
 				// prometheus 监控
 				cmdCounts.With(prometheus.Labels{"receive": "count"}).Inc()
 				// base64解码
-				decode, err := utils.DecodeBase64Bytes(msg)
+				decode, err := DecodeBase64Bytes(msg)
 				if err != nil {
 					log.WithField("Ws.go", "233").Error("Recive[156] ", err.Error())
 					break
@@ -252,7 +251,7 @@ func (this *ClientContext) Receive(quitChan chan bool) {
 			case ResizeTerminal:
 				// @数据格式 type+rows:cols
 				// base64解码
-				decode, err := utils.DecodeBase64(msg)
+				decode, err := DecodeBase64(msg)
 				if err != nil {
 					log.WithField("Ws.go", "252").Errorf("Recive[175] %s", err.Error())
 					break
