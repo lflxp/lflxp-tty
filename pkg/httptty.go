@@ -268,7 +268,15 @@ func Ws(c *gin.Context) {
 	}
 	defer ws.Close()
 
-	cmd := exec.Command(httpXterm.Cmds[0], httpXterm.Cmds[1:]...)
+	var cmd *exec.Cmd
+	if len(httpXterm.Cmds) == 0 {
+		cmd = exec.Command("bash")
+	} else if len(httpXterm.Cmds) == 1 {
+		cmd = exec.Command(httpXterm.Cmds[0])
+	} else if len(httpXterm.Cmds) > 1 {
+		cmd = exec.Command(httpXterm.Cmds[0], httpXterm.Cmds[1:]...)
+	}
+
 	//这里得到标准输出和标准错误输出的两个管道，此处获取了错误处理
 	ptmx, err := pty.Start(cmd)
 	if err != nil {
