@@ -14,24 +14,28 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-xorm/xorm"
+	"github.com/asdine/storm/v3"
 	_ "github.com/mattn/go-sqlite3"
 	log "github.com/sirupsen/logrus"
 )
 
-var Engine *xorm.Engine
+var boltDB *storm.DB
 
-func InitSqlite() {
-	homepath, err := Home()
-	if err != nil {
-		panic(err)
-	}
+func InitBoltDB() *storm.DB {
+	if boltDB == nil {
+		log.Info("初始化bolt数据库")
+		homepath, err := Home()
+		if err != nil {
+			panic(err)
+		}
 
-	Engine, err = xorm.NewEngine("sqlite3", fmt.Sprintf("%s/.showme.db", homepath))
-	if err != nil {
-		log.Error(err.Error())
+		log.Info(fmt.Sprintf("%s/.lflxp-tty.bolt", homepath))
+		boltDB, err = storm.Open(fmt.Sprintf("%s/.lflxp-tty.bolt", homepath))
+		if err != nil {
+			panic(err)
+		}
 	}
-	log.Infof("初始化sqlite数据库 %s/.showme.db", homepath)
+	return boltDB
 }
 
 // Home returns the home directory for the executing user.

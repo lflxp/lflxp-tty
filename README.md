@@ -200,3 +200,8 @@ total 12
 -rw-rw-r-- 1 xp xp  895 3月  23 17:11 server.csr
 -rw------- 1 xp xp 1675 3月  23 17:11 server.key
 ```
+
+# TODO
+
+1. 自定义初始化命令通过http参数传递
+2. 提供gin func插件

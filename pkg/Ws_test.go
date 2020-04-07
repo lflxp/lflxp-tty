@@ -1,17 +1,12 @@
 package pkg
 
 import (
-	"encoding/base64"
 	"fmt"
 	"strings"
 	"testing"
 
 	"golang.org/x/net/websocket"
 )
-
-func EncodeBase64(in string) string {
-	return base64.StdEncoding.EncodeToString([]byte(in))
-}
 
 func Test_client(t *testing.T) {
 	var wsurl = "ws://127.0.0.1:8080/ws"

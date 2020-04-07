@@ -3,16 +3,16 @@
   <head>
     <title>ShowMe-{{ .host }}</title>
     <style>body, #terminal {position: absolute; height: 100%; width: 100%; margin: 0px;}</style>
-    <link rel="stylesheet" href="/static/xterm.css" />
-    <link rel="stylesheet" href="/static/fullscreen.css" />
-    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
-    <script src="/static/xterm.js"></script>
-    <script src="/static/fit.js"></script>
-    <script src="/static/webLinks.js"></script>
-    <script src="/static/search.js"></script>
-    <script src="/static/fullscreen.js"></script>
-    <script src="/static/base64.min.js"></script>
-    <script src="/static/reconnecting-websocket.min.js"></script>
+    <link rel="stylesheet" href="{{ .StaticPath }}/xterm.css" />
+    <link rel="stylesheet" href="{{ .StaticPath }}/fullscreen.css" />
+    <link rel="icon" href="{{ .StaticPath }}/favicon.ico" type="image/x-icon" />
+    <script src="{{ .StaticPath }}/xterm.js"></script>
+    <script src="{{ .StaticPath }}/fit.js"></script>
+    <script src="{{ .StaticPath }}/webLinks.js"></script>
+    <script src="{{ .StaticPath }}/search.js"></script>
+    <script src="{{ .StaticPath }}/fullscreen.js"></script>
+    <script src="{{ .StaticPath }}/base64.min.js"></script>
+    <script src="{{ .StaticPath }}/reconnecting-websocket.min.js"></script>
   </head>
   <body>
     <div id="terminal" style="display: block; margin-bottom: 0px;"></div>
@@ -178,7 +178,7 @@
 
       term.writeln('启动参数: \x1B[1;3;30m{{ .Cmd }}\x1B[0m')
       {{if .isAduit}}
-      term.writeln('后台管理: \x1B[1;3;30m{{ .Httproto}}://' + window.location.host + '/admin\x1B[0m')
+      term.writeln('后台管理: \x1B[1;3;30m{{ .Httproto}}://' + window.location.host + '{{ .Admin }}\x1B[0m')
       {{- end}}
       // term.writeln('XsrfToken: {{ .Xsrf }}')
       term.prompt()
@@ -196,10 +196,10 @@
 
       {{if .Reconnect}}
         console.log("Recoonect Mode")
-        ws = new ReconnectingWebSocket('{{.Protocol}}://' + window.location.host + '/ws')
+        ws = new ReconnectingWebSocket('{{.Protocol}}://' + window.location.host + {{ .WsPath }})
       {{- else}}
         console.log("Once Mode")
-        ws = new WebSocket('{{.Protocol}}://' + window.location.host + '/ws')
+        ws = new WebSocket('{{.Protocol}}://' + window.location.host + {{ .WsPath }})
       {{- end}}
       
       ws.onopen = () => {

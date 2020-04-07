@@ -30,6 +30,8 @@ type Options struct {
 	Xsrf             bool
 	EnableTLS        bool
 	CrtPath, KeyPath string
+	IsReconnect      bool
+	IsDebug          bool
 }
 
 // 原本是命令端http server管理，这里后期可以改成gin server管理
@@ -63,4 +65,5 @@ type XtermJs struct {
 	Options     Options
 	Connections *int64   // 统计连接数
 	XsrfToken   sync.Map // xsrftoken存储
+	Cmds        []string // 命令集
 }

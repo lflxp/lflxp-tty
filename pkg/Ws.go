@@ -164,14 +164,14 @@ func (this *ClientContext) Receive(quitChan chan bool) {
 						Pid:        this.Cmd.Process.Pid,
 						Status:     "非法xsrf",
 					}
-					err = AddAduit(tmp)
+					err = tmp.Save()
 					if err != nil {
 						log.WithField("Ws.go", "166").Error("AddAduit error", err.Error())
 					}
 					this.write([]byte("\x1B[1;3;31mPermission Denied\x1B[0m\n"))
 					break
 				}
-				defer xterm.XsrfToken.Delete(cacheKey)
+				defer httpXterm.XsrfToken.Delete(cacheKey)
 			} else {
 				if len(message) < 34 {
 					return
@@ -215,7 +215,7 @@ func (this *ClientContext) Receive(quitChan chan bool) {
 					Pid:        this.Cmd.Process.Pid,
 					Status:     "success",
 				}
-				err = AddAduit(tmp)
+				err = tmp.Save()
 				if err != nil {
 					log.WithField("Ws.go", "217").Error("AddAduit error", err.Error())
 				}

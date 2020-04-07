@@ -7,51 +7,41 @@ import (
 // TODO
 // cgo效率太低 后期转mmap或者bbolt
 type Aduit struct {
-	Id         int64     `json:"id"`
-	Remoteaddr string    `json:"remoteaddr" xorm:"varchar(40) notnull index"`
-	Token      string    `json:"token" xorm:"varchar(32)"`
-	Command    string    `json:"command" xorm:"varchar(10)"`
+	Id         int64     `json:"id" storm:"id,increment"`
+	Remoteaddr string    `json:"remoteaddr"`
+	Token      string    `json:"token" `
+	Command    string    `json:"command"`
 	Pid        int       `json:"pid"`
-	Status     string    `json:"status" xorm:"varchar(40)"`
-	Created    time.Time `json:"created" xorm:"created"`
+	Status     string    `json:"status"`
+	Created    time.Time `json:"created"`
 }
 
-func AddAduit(data *Aduit) error {
-	_, err := Engine.Insert(data)
+func (this *Aduit) Save() error {
+	err := boltDB.Save(this)
 	return err
 }
 
 func GetAduit(name string) ([]Aduit, error) {
-	var err error
-	data := make([]Aduit, 0)
-	if name == "" {
-		err = Engine.Desc("created").Limit(300).Find(&data)
-	} else {
-		err = Engine.Where("id = ? or remoteaddr = ? or  token = ?", name, name, name).Desc("created").Limit(300).Find(&data)
-	}
-	return data, err
+	var rs []Aduit
+	err := boltDB.All(&rs)
+	return rs, err
 }
 
 // 记录谁来访问过
 type Whos struct {
-	Id         int64     `json:"id"`
-	Remoteaddr string    `json:"remoteaddr" xorm:"varchar(40)" notnull index`
-	Path       string    `json:"path" xorm:"varchar(20)"`
-	Created    time.Time `json:"created" xorm:"created"`
+	Id         int64     `json:"id" storm:"id,increment"`
+	Remoteaddr string    `json:"remoteaddr"`
+	Path       string    `json:"path"`
+	Created    time.Time `json:"created"`
 }
 
-func AddWhos(data *Whos) error {
-	_, err := Engine.Insert(data)
+func (this *Whos) Save() error {
+	err := boltDB.Save(this)
 	return err
 }
 
 func GetWhos(name string) ([]Whos, error) {
-	var err error
-	data := make([]Whos, 0)
-	if name == "" {
-		err = Engine.Desc("created").Limit(300).Find(&data)
-	} else {
-		err = Engine.Where("id = ? or remoteaddr = ? or  path = ?", name, name, name).Desc("created").Limit(300).Find(&data)
-	}
-	return data, err
+	var rs []Whos
+	err := boltDB.All(&rs)
+	return rs, err
 }

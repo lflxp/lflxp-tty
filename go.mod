@@ -5,6 +5,7 @@ go 1.13
 require (
 	cloud.google.com/go v0.39.0 // indirect
 	github.com/DeanThompson/ginpprof v0.0.0-20190408063150-3be636683586
+	github.com/asdine/storm/v3 v3.1.1
 	github.com/chenjiandongx/ginprom v0.0.0-20191227144730-e11ebf56bc05
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/elazarl/go-bindata-assetfs v1.0.0
@@ -23,8 +24,7 @@ require (
 	github.com/sirupsen/logrus v1.4.2
 	github.com/swaggo/swag v1.6.5 // indirect
 	github.com/unrolled/secure v1.0.7
-	github.com/urfave/cli v1.22.3 // indirect
-	golang.org/x/net v0.0.0-20200320220750-118fecf932d8
-	golang.org/x/tools v0.0.0-20200321224714-0d839f3cf2ed // indirect
-	google.golang.org/appengine v1.6.5 // indirect
+	github.com/urfave/cli v1.22.4 // indirect
+	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e
+	golang.org/x/tools v0.0.0-20200406213809-066fd1390ee0 // indirect
 )
