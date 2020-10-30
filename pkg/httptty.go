@@ -12,10 +12,10 @@ import (
 	"time"
 
 	"github.com/chenjiandongx/ginprom"
+	"github.com/creack/pty"
 	assetfs "github.com/elazarl/go-bindata-assetfs"
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
-	"github.com/kr/pty"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	log "github.com/sirupsen/logrus"
 )
