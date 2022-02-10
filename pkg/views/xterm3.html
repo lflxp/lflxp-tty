@@ -1,3 +1,4 @@
+{{ define "index" }}
 <!doctype html>
 <html>
   <head>
@@ -18,6 +19,7 @@
     <div id="terminal" style="display: block; margin-bottom: 0px;"></div>
     <script>
       const defaultTheme = {
+        lineHeight: 20,
         foreground: '#ffffff', // 字体
         background: '#000000', // 背景色 1b212f
         cursor: '#ffffff', // 设置光标
@@ -49,9 +51,7 @@
           //     cols: size.cols
           //   })
           // )
-          {{if .Debug}}
           console.log('resize',size)
-          {{- end}}
           websocket.send('2{{ .Xsrf }}' + Base64.encode(size.rows + ':' + size.cols))
         }
         // register resize event.
@@ -84,6 +84,8 @@
             term.write(Base64.decode(ev.data))
             // term.writeUtf8(Base64.decode(ev.data))
           }
+          // var myEvent = new Event('resize');
+          // window.dispatchEvent(myEvent);
         }
 
         const handleTerminalData = function(data) {
@@ -110,6 +112,7 @@
         const heartBeatTimer = setInterval(function() {
           // websocket.send(JSON.stringify({ type: 'heartbeat', data: '' }))
           // heartbeat
+          // console.log('heartbeat')
           websocket.send('3{{ .Xsrf }}' + Base64.encode('heartbeat'))
         }, 20 * 1000)
 
@@ -136,11 +139,12 @@
       Terminal.applyAddon(webLinks)
       Terminal.applyAddon(search)
       var term = new Terminal({
+        rendererType: "canvas",
         rows: 35,
+        cols: 100,
         convertEol: true, // 启用时，光标将设置为下一行的开头
-        scrollback: 100, // 终端中的回滚量
+        // scrollback: 100, // 终端中的回滚量
         disableStdin: false, // 是否应禁用输入
-        fontSize: 14,
         cursorBlink: true, // 光标闪烁
         cursorStyle: 'bar', // 光标样式 underline
         bellStyle: 'sound',
@@ -189,6 +193,26 @@
       })
       {{- end}}
 
+      // term.onData(key => {  // 粘贴的情况
+      //   if(key.length > 1) term.write(key)
+      // })
+
+      // 添加事件监听器，支持输入方法
+      // https://www.cnblogs.com/goloving/p/15021509.html
+      // term.onKey(e => {
+      //   const printable = !e.domEvent.altKey && !e.domEvent.altGraphKey && !e.domEvent.ctrlKey && !e.domEvent.metaKey
+      //   if (e.domEvent.keyCode === 13) {
+      //     term.prompt()
+      //   } else if (e.domEvent.keyCode === 8) { // back 删除的情况
+      //     if (term._core.buffer.x > 2) {
+      //       term.write('\b \b')
+      //     }
+      //   } else if (printable) {
+      //     term.write(e.key)
+      //   }
+      //   console.log(1,'print', e.key)
+      // })
+
       term.open(document.getElementById('terminal'))
       window.addEventListener('resize', Resize)
       term.webLinksInit(doLink)
@@ -203,10 +227,11 @@
       {{- end}}
       
       ws.onopen = () => {
-        let rows = document.body.clientHeight / 18 - 7
-        let cols = document.body.clientWidth / 14
+        let rows = document.body.clientHeight / 17.3
+        let cols = document.body.clientWidth / 9.02
         console.log(rows,cols)
         ws.send('2{{ .Xsrf }}' + Base64.encode(parseInt(rows) + ':' + parseInt(cols)))
+        term.fit() 
       }
 
       ws.onerror = (e) => {
@@ -219,7 +244,8 @@
       }
 
       bindTerminal(term, ws, true, -1)
-      bindTerminalResize(term, ws)
+      bindTerminalResize(term, ws);
     </script>
   </body>
 </html>
+{{ end }}

@@ -1,7 +1,8 @@
-install: asset
+install: 
 	cp cmd/main.go .
 	go install
 	rm -f main.go
+	lflxp-tty -w top
 
 build: asset
 	cd cmd && go build && mv cmd ../lflxp-tty
