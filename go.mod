@@ -11,7 +11,6 @@ require (
 	github.com/go-eden/slf4go v1.1.1
 	github.com/google/gops v0.3.22
 	github.com/gorilla/websocket v1.5.0
-	github.com/mattn/go-sqlite3 v1.14.11
 	github.com/prometheus/client_golang v1.12.1
 	github.com/unrolled/secure v1.10.0
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
@@ -22,7 +21,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-eden/common v0.1.14 // indirect
-	github.com/go-eden/routine v0.0.1 // indirect
+	github.com/go-eden/routine v1.0.2 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
