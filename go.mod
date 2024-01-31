@@ -1,6 +1,6 @@
 module github.com/lflxp/lflxp-tty
 
-go 1.17
+go 1.21.6
 
 require (
 	github.com/DeanThompson/ginpprof v0.0.0-20201112072838-007b1e56b2e1
@@ -8,7 +8,6 @@ require (
 	github.com/chenjiandongx/ginprom v0.0.0-20210617023641-6c809602c38a
 	github.com/creack/pty v1.1.17
 	github.com/gin-gonic/gin v1.7.7
-	github.com/go-eden/slf4go v1.1.1
 	github.com/google/gops v0.3.22
 	github.com/gorilla/websocket v1.5.0
 	github.com/prometheus/client_golang v1.12.1
@@ -20,8 +19,6 @@ require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/go-eden/common v0.1.14 // indirect
-	github.com/go-eden/routine v1.0.2 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
