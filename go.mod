@@ -10,6 +10,7 @@ require (
 	github.com/gin-gonic/gin v1.7.7
 	github.com/google/gops v0.3.22
 	github.com/gorilla/websocket v1.5.0
+	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/prometheus/client_golang v1.12.1
 	github.com/unrolled/secure v1.10.0
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
