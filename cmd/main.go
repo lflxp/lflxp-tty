@@ -17,6 +17,7 @@ var (
 	MaxConnections int64
 	isReconnect    bool
 	isDebug        bool
+	url            string
 	username       string
 	password       string
 	port           string
@@ -38,6 +39,7 @@ func init() {
 	flag.StringVar(&crtPath, "c", "./server.crt", "*.crt file path")
 	flag.StringVar(&keyPath, "k", "./server.key", "*.key file path")
 	flag.Int64Var(&MaxConnections, "m", 0, "maximum connection")
+	flag.StringVar(&url, "b", "/", "平台访问路径，默认为 /")
 	flag.Parse()
 }
 
@@ -57,6 +59,7 @@ func main() {
 		Password:       password,
 		Port:           port,
 		Host:           host,
+		Url:            url,
 		Cmds:           flag.Args(),
 	}
 
