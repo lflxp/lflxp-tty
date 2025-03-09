@@ -82,7 +82,7 @@ func RegisterTty(router *gin.Engine, data *Tty) {
 	tmp := template.Must(template.New("").ParseFS(Views, "views/*"))
 	router.SetHTMLTemplate(tmp)
 
-	rootPath := data.Url
+	rootPath = data.Url
 
 	var apiGroup *gin.RouterGroup
 	// 是否密码登录
